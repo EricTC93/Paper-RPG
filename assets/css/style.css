@@ -1,5 +1,28 @@
+#pageHead, #instructions, .col-md-3, .col-md-2, .imgContainer, #scoreHeader, #scoreBlock {
+	margin: 10px;
+	background-color: red;
+	color: white;
+}
+
+#targetScoreBlock, #winLossBlock, #scoreBlock {
+	height: 100px;
+}
+
+p {
+	padding-top: 7px;
+}
+
+#targetScoreBlock, #scoreBlock {
+	font-size: 30px;
+}
+
+.imgContainer {
+	float: left;
+	background-color: blue;
+	padding: 5px;
+}
+
 img {
 	height: 75px;
 	width: auto;
-	float: left;
 }
