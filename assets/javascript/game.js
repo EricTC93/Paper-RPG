@@ -26,6 +26,12 @@ var crystals = [crystal0, crystal1, crystal2, crystal3];
 
 // console.log(crystals[1]);
 
+var winNum = 0;
+var loseNum = 0;
+
+$("#winNum").text(winNum);
+$("#loseNum").text(loseNum);
+
 startGame();
 
 function startGame() {
@@ -50,10 +56,6 @@ function startGame() {
 }
 
 
-
-
-
-
 $(".imgContainer").on("click",function() {
 	// console.log(this.id);
 	if(this.id === "crystal0") {
@@ -74,4 +76,14 @@ $(".imgContainer").on("click",function() {
 
 	console.log(userScore);
 	$("#userScore").text(userScore);
+
+	if(userScore === targetScore) {
+		$("#winNum").text(++winNum);
+		startGame();
+	}
+
+	else if(userScore > targetScore) {
+		$("#loseNum").text(++loseNum);
+		startGame();
+	}
 });
