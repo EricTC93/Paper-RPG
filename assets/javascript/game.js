@@ -1,23 +1,30 @@
 var crystal0 = {
-	value: 7
+	name: "star",
+	value: 0
 };
 
 var crystal1 = {
-	value: 2
+	name: "chaos",
+	value: 0
 };
 
 var crystal2 = {
-	value: 6
+	name: "adamant",
+	value: 0
 };
 
 var crystal3 = {
-	value: 3
+	name: "heart",
+	value: 0
 };
 
 var targetScore;
 
 var userScore;
 
+var crystals = [crystal0, crystal1, crystal2, crystal3];
+
+// console.log(crystals[1]);
 
 startGame();
 
@@ -27,6 +34,19 @@ function startGame() {
 
 	userScore = 0;
 	$("#userScore").text(userScore);
+
+	for (var i = 0; i < crystals.length; i++) {
+		var rand = Math.floor(Math.random()*12 + 1);
+		crystals[i].value = rand;
+
+		for (var j = i-1; j >= 0; j--) {
+			if (crystals[i].value === crystals[j].value ) {
+				i--;
+			}
+		}
+
+		console.log(crystals[i]);
+	}
 }
 
 
