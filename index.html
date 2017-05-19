@@ -4,22 +4,60 @@
 	<meta charset="UTF-8">
 	<title> RPG </title>
 	<script src="https://code.jquery.com/jquery-3.1.1.js"></script>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
 	<link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-	<div class="container">
+	<div class="container pull-left">
 		<div class="row">
 			<div col-md-5>
 				<h1> RPG </h1>
 			</div>
 		</div>
 
-		<div class="row"></div>
+		<div id="userRow">
+			<div class="playerContainer">
+				<img id="player0Img" src="assets/images/mario.png" alt="">
+				<h3 id="player0Name">Mario</h3>
+			</div>
 
-		<div class="row"></div>
+			<div class="playerContainer">
+				<img id="player1Img" src="assets/images/mario.png" alt="">
+				<h3 id="player1Name">Mario</h3>
+			</div>
+
+			<div class="playerContainer">
+				<img id="player2Img" src="assets/images/mario.png" alt="">
+				<h3 id="player2Name">Mario</h3>
+			</div>
+
+			<div class="playerContainer">
+				<img id="player3Img" src="assets/images/mario.png" alt="">
+				<h3 id="player3Name">Mario</h3>
+			</div>
+			<h2> Your Character </h2>
+		</div>
+
+		<div id="selectRow">
+			<div class="playerContainer">
+				<img id="player0Img" src="assets/images/mario.png" alt="">
+				<h3 id="player0Name">Mario</h3>
+			</div>
+			<h2> Enemies Available To Attack </h2>
+		</div>
 		
-		<div class="row"></div>
+		<div id="fightRow">
+			<h2> Fight Section </h2>
+			<button id="fight"> Attack </button>
+		</div>
+
+		<div id="defenderRow">
+			<div class="playerContainer">
+				<img id="player0Img" src="assets/images/mario.png" alt="">
+				<h3 id="player0Name">Mario</h3>
+			</div>
+			<h2> Defenfer</h2>
+		</div>
 	</div>
 	
 </body>

@@ -1,0 +1,47 @@
+.container {
+	overflow: auto;
+}
+
+#userRow, #selectRow, #fightRow, #defenderRow {
+	overflow: auto;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.playerContainer, .enemyContainer, .defenderContainer {
+	height: 200px;
+	width: 200px;
+	float: left;
+	border: 5px solid black;
+	text-align: center;
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+img {
+	height: 150px;
+	width: auto;
+	border: 1px solid red;
+	margin-top: 5px;
+}
+
+h2 {
+	clear: both;
+}
+
+h3 {
+	margin: 0px;
+}
+
+#userRow > .playerContainer {
+	background-color: grey;
+}
+
+#selectRow > .playerContainer {
+	background-color: blue;
+}
+
+#defenderRow > .playerContainer {
+	background-color: black;
+	color: white;
+}
