@@ -9,7 +9,10 @@ var mario = {
 	id: $("#char0").attr("id"),
 
 	maxHp: 100,
-	hp: 100
+	hp: 100,
+
+	attackPower: 20,
+	counterAttack: 20
 };
 
 var luigi = {
@@ -22,7 +25,10 @@ var luigi = {
 	id: $("#char1").attr("id"),
 
 	maxHp: 90,
-	hp: 90
+	hp: 90,
+
+	attackPower: 15,
+	counterAttack: 25
 };
 
 var peach = {
@@ -34,8 +40,11 @@ var peach = {
 	$container: $("#char2"),
 	id: $("#char2").attr("id"),
 
-	maxHp: 85,
-	hp: 85
+	maxHp: 80,
+	hp: 80,
+
+	attackPower: 10,
+	counterAttack: 30
 };
 
 var bowser = {
@@ -48,7 +57,10 @@ var bowser = {
 	id: $("#char3").attr("id"),
 
 	maxHp: 120,
-	hp: 120
+	hp: 120,
+
+	attackPower: 30,
+	counterAttack: 15
 };
 
 var characters = [mario,luigi,peach,bowser];
@@ -65,7 +77,7 @@ var characters = [mario,luigi,peach,bowser];
 
 // $("#char1 > img").attr("src",luigi.imgAlt);
 
-// Display players' HP
+// Display players' hp
 for (var i = 0; i < characters.length; i++) {
 	$("#char" + i + " > p").text(characters[i].hp);
 }
@@ -116,9 +128,20 @@ $("#attack").on("click",battle);
 
 function battle() {
 	if (playerSelected && defenderSelected) {
-		console.log(userPlayer);
-		console.log(defendingEnemy);
+		// console.log(userPlayer);
+		// console.log(defendingEnemy);
+
+		defendingEnemy.hp-=userPlayer.attackPower;
+		userPlayer.hp-=defendingEnemy.counterAttack;
+
+		userPlayer.attackPower+=10;
+
+		updateDisplay();
+
 	}
 }
 
-
+function updateDisplay() {
+	userPlayer.$container.children("p").text(userPlayer.hp);
+	defendingEnemy.$container.children("p").text(defendingEnemy.hp);
+}
