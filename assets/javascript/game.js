@@ -39,18 +39,38 @@ var characters = [mario,luigi,peach,bowser];
 
 
 var playerSelected = false;
+var defenderSelected = false;
 var userPlayer
 
 $(".characterContainer").on("click",function() {
 	// console.log(this.id);
 	// console.log(characters[0].id);
+	// Selects Player
 	if (!playerSelected) {
 
 		playerSelected = true;
+
 		for (var i = 0; i < characters.length; i++) {
 
 			if (this.id != characters[i].id) {
 				$("#selectRow").append(characters[i].$container);
+
+			}
+
+			else {
+				userPlayer = characters[i];
+			}
+		}
+	}
+
+	// Selects Defender
+	else if (!defenderSelected && this.id != userPlayer.id) {
+		for (var i = 0; i < characters.length; i++) {
+
+			defenderSelected = true;
+
+			if (this.id === characters[i].id) {
+				$("#defenderRow").append(characters[i].$container);
 
 			}
 		}

@@ -8,14 +8,15 @@
 	margin-bottom: 10px;
 }
 
-.characterContainer, .enemyContainer, .defenderContainer {
-	height: 200px;
-	width: 200px;
+.characterContainer {
+	min-height: 200px;
+	min-width: 200px;
 	float: left;
 	border: 5px solid black;
 	text-align: center;
 	margin-left: 5px;
 	margin-right: 5px;
+	overflow: auto;
 }
 
 img {
@@ -29,7 +30,7 @@ h2 {
 	clear: both;
 }
 
-h3 {
+h3, p {
 	margin: 0px;
 }
 
