@@ -110,3 +110,15 @@ $(".characterContainer").on("click",function() {
 	}
 });
 
+
+$("#attack").on("click",battle);
+
+
+function battle() {
+	if (playerSelected && defenderSelected) {
+		console.log(userPlayer);
+		console.log(defendingEnemy);
+	}
+}
+
+
