@@ -77,6 +77,8 @@ var characters = [mario,luigi,peach,bowser];
 
 // $("#char1 > img").attr("src",luigi.imgAlt);
 
+// mario.$container.hide();
+
 // Display players' hp
 for (var i = 0; i < characters.length; i++) {
 	$("#char" + i + " > p").text(characters[i].hp);
@@ -132,7 +134,10 @@ function battle() {
 		// console.log(defendingEnemy);
 
 		defendingEnemy.hp-=userPlayer.attackPower;
-		userPlayer.hp-=defendingEnemy.counterAttack;
+
+		if (defendingEnemy.hp > 0) {
+			userPlayer.hp-=defendingEnemy.counterAttack;
+		}
 
 		userPlayer.attackPower+=10;
 
@@ -143,5 +148,13 @@ function battle() {
 
 function updateDisplay() {
 	userPlayer.$container.children("p").text(userPlayer.hp);
-	defendingEnemy.$container.children("p").text(defendingEnemy.hp);
+
+	if (defendingEnemy.hp > 0) {
+		defendingEnemy.$container.children("p").text(defendingEnemy.hp);
+	}
+
+	else {
+		defendingEnemy.$container.hide();
+		defenderSelected = false;
+	}
 }
