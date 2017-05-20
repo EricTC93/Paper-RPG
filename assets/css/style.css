@@ -22,7 +22,7 @@
 img {
 	height: 150px;
 	width: auto;
-	border: 1px solid red;
+	border: 1px solid green;
 	margin-top: 5px;
 }
 
@@ -39,7 +39,7 @@ h3, p {
 }
 
 #selectRow > .characterContainer {
-	background-color: blue;
+	background-color: red;
 }
 
 #defenderRow > .characterContainer {
