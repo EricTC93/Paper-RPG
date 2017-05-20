@@ -8,8 +8,8 @@ var mario = {
 	$container: $("#char0"),
 	id: $("#char0").attr("id"),
 
-	maxHp: 100,
-	hp: 100,
+	maxHp: 120,
+	hp: 120,
 
 	startingAttack: 20,
 	attackPower: 20,
@@ -25,8 +25,8 @@ var luigi = {
 	$container: $("#char1"),
 	id: $("#char1").attr("id"),
 
-	maxHp: 90,
-	hp: 90,
+	maxHp: 110,
+	hp: 110,
 
 	startingAttack: 15,
 	attackPower: 15,
@@ -42,8 +42,8 @@ var peach = {
 	$container: $("#char2"),
 	id: $("#char2").attr("id"),
 
-	maxHp: 80,
-	hp: 80,
+	maxHp: 100,
+	hp: 100,
 
 	startingAttack: 10,
 	attackPower: 10,
@@ -59,8 +59,8 @@ var bowser = {
 	$container: $("#char3"),
 	id: $("#char3").attr("id"),
 
-	maxHp: 120,
-	hp: 120,
+	maxHp: 140,
+	hp: 140,
 
 	startingAttack: 30,
 	attackPower: 30,
@@ -110,6 +110,7 @@ $(".characterContainer").on("click",function() {
 
 			if (this.id != characters[i].id) {
 				$("#selectRow").append(characters[i].$container);
+				characters[i].$container.children("img").attr("src",characters[i].imgAlt);
 
 			}
 
@@ -194,6 +195,7 @@ function reset () {
 		characters[i].$container.show();
 		characters[i].hp = characters[i].maxHp;
 		characters[i].attackPower = characters[i].startingAttack;
+		characters[i].$container.children("img").attr("src",characters[i].img);
 	}
 
 	playerSelected = false;
