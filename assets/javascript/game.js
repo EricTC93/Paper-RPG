@@ -87,7 +87,8 @@ var characters = [mario,luigi,peach,bowser];
 
 // Display players' hp
 for (var i = 0; i < characters.length; i++) {
-	$("#char" + i + " > p").text(characters[i].hp);
+	// $("#char" + i + " > p").text(characters[i].hp);
+	characters[i].$container.children("p").text(characters[i].hp);
 }
 
 var playerSelected = false;
@@ -113,6 +114,7 @@ $(".characterContainer").on("click",function() {
 			}
 
 			else {
+				$("#userRow").append(characters[i].$container);
 				userPlayer = characters[i];
 			}
 		}

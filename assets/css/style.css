@@ -1,3 +1,9 @@
+body {
+	background-image: url(../images/backgroundImg0.png);
+	background-size: contain;
+	min-height: 1000px;
+}
+
 .container {
 	overflow: auto;
 }
@@ -9,8 +15,8 @@
 }
 
 .characterContainer {
-	min-height: 200px;
-	min-width: 200px;
+	min-height: 100px;
+	min-width: 100px;
 	float: left;
 	border: 5px solid black;
 	text-align: center;
@@ -20,7 +26,7 @@
 }
 
 img {
-	height: 150px;
+	height: 75px;
 	width: auto;
 	border: 1px solid green;
 	margin-top: 5px;
@@ -30,7 +36,7 @@ h2 {
 	clear: both;
 }
 
-h3, p {
+h1, h3, p {
 	margin: 0px;
 }
 
