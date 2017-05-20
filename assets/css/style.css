@@ -46,3 +46,7 @@ h3, p {
 	background-color: black;
 	color: white;
 }
+
+#reset {
+	display: none;
+}

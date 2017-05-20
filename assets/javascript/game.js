@@ -149,7 +149,12 @@ function battle() {
 function updateDisplay() {
 	userPlayer.$container.children("p").text(userPlayer.hp);
 
-	if (defendingEnemy.hp > 0) {
+	if (userPlayer.hp <= 0) {
+		$("attack").hide();
+		$("#reset").show();
+	}
+
+	else if (defendingEnemy.hp > 0) {
 		defendingEnemy.$container.children("p").text(defendingEnemy.hp);
 	}
 
