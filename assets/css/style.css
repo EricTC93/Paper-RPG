@@ -2,7 +2,7 @@
 	overflow: auto;
 }
 
-#userRow, #selectRow, #fightRow, #defenderRow {
+#startingRow, #userRow, #selectRow, #fightRow, #defenderRow {
 	overflow: auto;
 	margin-top: 10px;
 	margin-bottom: 10px;
@@ -32,6 +32,10 @@ h2 {
 
 h3, p {
 	margin: 0px;
+}
+
+#startingRow > .characterContainer {
+	background-color: white;
 }
 
 #userRow > .characterContainer {

@@ -11,6 +11,7 @@ var mario = {
 	maxHp: 100,
 	hp: 100,
 
+	startingAttack: 20,
 	attackPower: 20,
 	counterAttack: 20
 };
@@ -27,6 +28,7 @@ var luigi = {
 	maxHp: 90,
 	hp: 90,
 
+	startingAttack: 15,
 	attackPower: 15,
 	counterAttack: 25
 };
@@ -43,6 +45,7 @@ var peach = {
 	maxHp: 80,
 	hp: 80,
 
+	startingAttack: 10,
 	attackPower: 10,
 	counterAttack: 30
 };
@@ -59,6 +62,7 @@ var bowser = {
 	maxHp: 120,
 	hp: 120,
 
+	startingAttack: 30,
 	attackPower: 30,
 	counterAttack: 15
 };
@@ -79,6 +83,8 @@ var characters = [mario,luigi,peach,bowser];
 
 // mario.$container.hide();
 
+// $("#startingRow").append(mario.$container);
+
 // Display players' hp
 for (var i = 0; i < characters.length; i++) {
 	$("#char" + i + " > p").text(characters[i].hp);
@@ -88,6 +94,8 @@ var playerSelected = false;
 var defenderSelected = false;
 var userPlayer;
 var defendingEnemy;
+
+var enemiesDefeated = 0;
 
 $(".characterContainer").on("click",function() {
 	// console.log(this.id);
@@ -126,6 +134,7 @@ $(".characterContainer").on("click",function() {
 
 
 $("#attack").on("click",battle);
+$("#reset").on("click",reset);
 
 
 function battle() {
@@ -147,19 +156,41 @@ function battle() {
 }
 
 function updateDisplay() {
-	userPlayer.$container.children("p").text(userPlayer.hp);
+	// userPlayer.$container.children("p").text(userPlayer.hp);
+	// defendingEnemy.$container.children("p").text(defendingEnemy.hp);
+
+	for (var i = 0; i < characters.length; i++) {
+		characters[i].$container.children("p").text(characters[i].hp);
+	}
 
 	if (userPlayer.hp <= 0) {
 		$("attack").hide();
 		$("#reset").show();
 	}
 
-	else if (defendingEnemy.hp > 0) {
-		defendingEnemy.$container.children("p").text(defendingEnemy.hp);
-	}
-
-	else {
+	else if (defendingEnemy.hp <= 0) {
 		defendingEnemy.$container.hide();
 		defenderSelected = false;
+		enemiesDefeated++;
 	}
+
+	if (enemiesDefeated === 3) {
+		$("attack").hide();
+		$("#reset").show();
+	}
+}
+
+function reset () {
+	for (var i = 0; i < characters.length; i++) {
+		$("#startingRow").append(characters[i].$container);
+		characters[i].$container.show();
+		characters[i].hp = characters[i].maxHp;
+		characters[i].attackPower = characters[i].startingAttack;
+	}
+
+	playerSelected = false;
+	defenderSelected = false;
+	enemiesDefeated = 0;
+
+	updateDisplay();
 }
