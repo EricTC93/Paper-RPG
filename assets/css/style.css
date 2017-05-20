@@ -8,7 +8,7 @@
 	margin-bottom: 10px;
 }
 
-.playerContainer, .enemyContainer, .defenderContainer {
+.characterContainer, .enemyContainer, .defenderContainer {
 	height: 200px;
 	width: 200px;
 	float: left;
@@ -33,15 +33,15 @@ h3 {
 	margin: 0px;
 }
 
-#userRow > .playerContainer {
+#userRow > .characterContainer {
 	background-color: grey;
 }
 
-#selectRow > .playerContainer {
+#selectRow > .characterContainer {
 	background-color: blue;
 }
 
-#defenderRow > .playerContainer {
+#defenderRow > .characterContainer {
 	background-color: black;
 	color: white;
 }
