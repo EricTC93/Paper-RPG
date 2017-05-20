@@ -123,6 +123,7 @@ $(".characterContainer").on("click",function() {
 		for (var i = 0; i < characters.length; i++) {
 
 			defenderSelected = true;
+			$("#message").html("");
 
 			if (this.id === characters[i].id) {
 				$("#defenderRow").append(characters[i].$container);
@@ -143,9 +144,11 @@ function battle() {
 		// console.log(defendingEnemy);
 
 		defendingEnemy.hp-=userPlayer.attackPower;
+		$("#message").html("<p>" + userPlayer.name + " did " + userPlayer.attackPower + " damage</p>" );
 
 		if (defendingEnemy.hp > 0) {
 			userPlayer.hp-=defendingEnemy.counterAttack;
+			$("#message").append("<p>" + defendingEnemy.name + " did " + defendingEnemy.counterAttack + " damage in return</p>" );
 		}
 
 		userPlayer.attackPower+=10;
@@ -164,19 +167,22 @@ function updateDisplay() {
 	}
 
 	if (userPlayer.hp <= 0) {
-		$("attack").hide();
+		$("#attack").hide();
 		$("#reset").show();
+		$("#message").html("<p> You have been defeated. Game Over </p>");
 	}
 
 	else if (defendingEnemy.hp <= 0) {
 		defendingEnemy.$container.hide();
 		defenderSelected = false;
 		enemiesDefeated++;
+		$("#message").html("<p> You have defeated " + defendingEnemy.name +  "</p>");
 	}
 
 	if (enemiesDefeated === 3) {
-		$("attack").hide();
+		$("#attack").hide();
 		$("#reset").show();
+		$("#message").html("<p> You Win. Game Over </p>");
 	}
 }
 
@@ -191,6 +197,10 @@ function reset () {
 	playerSelected = false;
 	defenderSelected = false;
 	enemiesDefeated = 0;
+
+	$("#message").html("");
+	$("#reset").hide();
+	$("#attack").show();
 
 	updateDisplay();
 }
