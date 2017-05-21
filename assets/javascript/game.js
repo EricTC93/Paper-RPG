@@ -1,6 +1,7 @@
 // Declaring Variables
 var mario = {
 	name:"Mario",
+	type:"player",
 
 	img: "assets/images/mario.png",
 	imgAlt: "assets/images/marioAlt.png",
@@ -17,6 +18,7 @@ var mario = {
 
 var luigi = {
 	name:"Luigi",
+	type:"player",
 
 	img: "assets/images/luigi.png",
 	imgAlt: "assets/images/luigiAlt.png",
@@ -33,6 +35,7 @@ var luigi = {
 
 var enemy0 = {
 	name:"",
+	type:"enemy",
 
 	img: "",
 
@@ -105,7 +108,7 @@ var defenderSelected = false;
 var userPlayer;
 var defendingEnemy;
 
-var enemiesDefeated = 0;
+var enemiesLeft;
 
 $(".characterContainer").on("click",function() {
 
@@ -126,13 +129,13 @@ $(".characterContainer").on("click",function() {
 				userPlayer = characters[i];
 				scene.push(userPlayer);
 				setEnemies();
-				scene.push(enemy0);
+				enemiesLeft = scene.length - 1;
 			}
 		}
 	}
 
 	// Selects Defender
-	else if (!defenderSelected && this.id != userPlayer.id) {
+	else if (this.id != userPlayer.id) {
 		for (var i = 0; i < enemies.length; i++) {
 
 			defenderSelected = true;
@@ -152,21 +155,36 @@ $("#reset").on("click",reset);
 
 function battle() {
 	if (playerSelected && defenderSelected) {
-		// console.log(userPlayer);
-		// console.log(defendingEnemy);
 
 		defendingEnemy.hp-=userPlayer.attackPower;
 		$("#message").html("<p>" + userPlayer.name + " did " + userPlayer.attackPower + " damage</p>" );
 
-		if (defendingEnemy.hp > 0) {
-			userPlayer.hp-=defendingEnemy.attackPower;
-			$("#message").append("<p>" + defendingEnemy.name + " did " + defendingEnemy.attackPower + " damage in return</p>" );
+		if (defendingEnemy.hp <= 0) {
+			defendingEnemy.$container.hide();
+			enemiesLeft--;
+			$("#message").html("<p> You have defeated " + defendingEnemy.name +  "</p>");
 		}
 
-		defenderSelected = false;
 		updateDisplay();
 
+		enemyTurn();
+
+		defenderSelected = false;
+		
 	}
+}
+
+function enemyTurn() {
+
+	for( var i = 0; i < enemies.length; i++) {
+
+		if (enemies[i].hp > 0) {
+			userPlayer.hp-=enemies[i].attackPower;
+			$("#message").append("<p>" + enemies[i].name + " did " + defendingEnemy.attackPower + " damage</p>" );
+		}	
+	}
+
+	updateDisplay();
 }
 
 function updateDisplay() {
@@ -181,14 +199,7 @@ function updateDisplay() {
 		$("#message").html("<p> You have been defeated. Game Over </p>");
 	}
 
-	else if (defendingEnemy.hp <= 0) {
-		defendingEnemy.$container.hide();
-		defenderSelected = false;
-		enemiesDefeated++;
-		$("#message").html("<p> You have defeated " + defendingEnemy.name +  "</p>");
-	}
-
-	if (enemiesDefeated === 1) {
+	else if (enemiesLeft === 0) {
 		$("#attack").hide();
 		$("#reset").show();
 		$("#message").html("<p> You win the round </p>");
@@ -216,14 +227,22 @@ function reset () {
 }
 
 function setEnemies () {
-	enemy0.name = goomba.name;
-	enemy0.hp = goomba.hp;
-	enemy0.attackPower = goomba.attackPower;
-	enemy0.img = goomba.img;
 
-	enemy0.$container.children("h3").text(enemy0.name);
-	enemy0.$container.children("img").attr("src",enemy0.img);
-	enemy0.$container.children("p").text(enemy0.hp);
-	enemy0.$container.show();
+	for (var i = 0; i < 3; i++) {
+
+		enemies[i].name = goomba.name;
+		enemies[i].hp = goomba.hp;
+		enemies[i].attackPower = goomba.attackPower;
+		enemies[i].img = goomba.img;
+
+		enemies[i].$container.children("h3").text(enemies[i].name);
+		enemies[i].$container.children("img").attr("src",enemies[i].img);
+		enemies[i].$container.children("p").text(enemies[i].hp);
+		enemies[i].$container.show();
+
+		scene.push(enemies[i]);
+	}
+
+	updateDisplay();
 
 }
