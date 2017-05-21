@@ -3,7 +3,7 @@ var mario = {
 	name:"Mario",
 
 	img: "assets/images/mario.png",
-	imgAlt: "assets/images/mario.png",
+	imgAlt: "assets/images/marioAlt.png",
 
 	$container: $("#char0"),
 	id: $("#char0").attr("id"),
@@ -11,8 +11,8 @@ var mario = {
 	maxHp: 120,
 	hp: 120,
 
-	startingAttack: 20,
-	attackPower: 20,
+	startingAttack: 15,
+	attackPower: 15,
 	counterAttack: 20
 };
 
@@ -25,11 +25,11 @@ var luigi = {
 	$container: $("#char1"),
 	id: $("#char1").attr("id"),
 
-	maxHp: 110,
-	hp: 110,
+	maxHp: 115,
+	hp: 115,
 
-	startingAttack: 15,
-	attackPower: 15,
+	startingAttack: 13,
+	attackPower: 13,
 	counterAttack: 25
 };
 
@@ -42,11 +42,11 @@ var peach = {
 	$container: $("#char2"),
 	id: $("#char2").attr("id"),
 
-	maxHp: 100,
-	hp: 100,
+	maxHp: 110,
+	hp: 110,
 
-	startingAttack: 10,
-	attackPower: 10,
+	startingAttack: 11,
+	attackPower: 11,
 	counterAttack: 30
 };
 
@@ -54,16 +54,16 @@ var bowser = {
 	name:"Bowser",
 
 	img: "assets/images/bowser.png",
-	imgAlt: "assets/images/bowser.png",
+	imgAlt: "assets/images/bowserAlt.png",
 
 	$container: $("#char3"),
 	id: $("#char3").attr("id"),
 
-	maxHp: 140,
-	hp: 140,
+	maxHp: 125,
+	hp: 125,
 
-	startingAttack: 30,
-	attackPower: 30,
+	startingAttack: 17,
+	attackPower: 17,
 	counterAttack: 15
 };
 
@@ -154,7 +154,7 @@ function battle() {
 			$("#message").append("<p>" + defendingEnemy.name + " did " + defendingEnemy.counterAttack + " damage in return</p>" );
 		}
 
-		userPlayer.attackPower+=10;
+		userPlayer.attackPower+=userPlayer.startingAttack;
 
 		updateDisplay();
 
