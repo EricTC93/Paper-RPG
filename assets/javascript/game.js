@@ -108,7 +108,8 @@ var defenderSelected = false;
 var userPlayer;
 var defendingEnemy;
 
-var enemiesLeft;
+var enemyCount = Math.floor(Math.random()*enemies.length + 1)
+var enemiesLeft = enemyCount;
 
 $(".characterContainer").on("click",function() {
 
@@ -228,7 +229,7 @@ function reset () {
 
 function setEnemies () {
 
-	for (var i = 0; i < 3; i++) {
+	for (var i = 0; i < enemyCount; i++) {
 
 		enemies[i].name = goomba.name;
 		enemies[i].hp = goomba.hp;
