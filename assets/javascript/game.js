@@ -1,6 +1,7 @@
 // Declaring Variables
 var mario = {
 	name:"Mario",
+	nameAlt:"Mr. M",
 
 	img: "assets/images/mario.png",
 	imgAlt: "assets/images/marioAlt.png",
@@ -18,6 +19,7 @@ var mario = {
 
 var luigi = {
 	name:"Luigi",
+	nameAlt:"Mr. L",
 
 	img: "assets/images/luigi.png",
 	imgAlt: "assets/images/luigiAlt.png",
@@ -35,6 +37,7 @@ var luigi = {
 
 var peach = {
 	name:"Peach",
+	nameAlt:"Shadow Peach",
 
 	img: "assets/images/peach.png",
 	imgAlt: "assets/images/peachAlt.png",
@@ -52,6 +55,7 @@ var peach = {
 
 var bowser = {
 	name:"Bowser",
+	nameAlt:"Dark Bowser",
 
 	img: "assets/images/bowser.png",
 	imgAlt: "assets/images/bowserAlt.png",
@@ -69,38 +73,19 @@ var bowser = {
 
 var characters = [mario,luigi,peach,bowser];
 
-// console.log(mario);
-
-// console.log($("#char3 > img").attr("src"));
-
-// $("#char1 > p").text(luigi.hp);
-
-// $("#selectRow").append(mario.$container);
-
-// console.log(mario.$container.children("img"));
-
-// $("#char1 > img").attr("src",luigi.imgAlt);
-
-// mario.$container.hide();
-
-// $("#startingRow").append(mario.$container);
-
-// Display players' hp
-for (var i = 0; i < characters.length; i++) {
-	// $("#char" + i + " > p").text(characters[i].hp);
-	characters[i].$container.children("p").text(characters[i].hp);
-}
-
 var playerSelected = false;
 var defenderSelected = false;
 var userPlayer;
 var defendingEnemy;
-
 var enemiesDefeated = 0;
 
+// Display players' hp
+for (var i = 0; i < characters.length; i++) {
+	characters[i].$container.children("p").text(characters[i].hp);
+}
+
 $(".characterContainer").on("click",function() {
-	// console.log(this.id);
-	// console.log(characters[0].id);
+
 	// Selects Player
 	if (!playerSelected) {
 
@@ -111,6 +96,7 @@ $(".characterContainer").on("click",function() {
 			if (this.id != characters[i].id) {
 				$("#selectRow").append(characters[i].$container);
 				characters[i].$container.children("img").attr("src",characters[i].imgAlt);
+				characters[i].$container.children("h3").text(characters[i].nameAlt);
 
 			}
 
@@ -136,24 +122,33 @@ $(".characterContainer").on("click",function() {
 	}
 });
 
-
+// On Click Events
 $("#attack").on("click",battle);
 $("#reset").on("click",reset);
 
-
+// Battle between attacker and defender
 function battle() {
 	if (playerSelected && defenderSelected) {
-		// console.log(userPlayer);
-		// console.log(defendingEnemy);
 
+		// Attacks the defender
 		defendingEnemy.hp-=userPlayer.attackPower;
 		$("#message").html("<p>" + userPlayer.name + " did " + userPlayer.attackPower + " damage</p>" );
 
+		// Defender still has hp
 		if (defendingEnemy.hp > 0) {
 			userPlayer.hp-=defendingEnemy.counterAttack;
-			$("#message").append("<p>" + defendingEnemy.name + " did " + defendingEnemy.counterAttack + " damage in return</p>" );
+			$("#message").append("<p>" + defendingEnemy.nameAlt + " did " + defendingEnemy.counterAttack + " damage in return</p>" );
 		}
 
+		// Defender has no hp
+		else if (defendingEnemy.hp <= 0) {
+			defendingEnemy.$container.hide();
+			defenderSelected = false;
+			enemiesDefeated++;
+			$("#message").html("<p> You have defeated " + defendingEnemy.name +  "</p>");
+		}
+
+		// Player's attack increases
 		userPlayer.attackPower+=userPlayer.startingAttack;
 
 		updateDisplay();
@@ -161,34 +156,30 @@ function battle() {
 	}
 }
 
+// Update HP count, messages, containers, etc.
 function updateDisplay() {
-	// userPlayer.$container.children("p").text(userPlayer.hp);
-	// defendingEnemy.$container.children("p").text(defendingEnemy.hp);
 
+	// Updates each character's hp
 	for (var i = 0; i < characters.length; i++) {
 		characters[i].$container.children("p").text(characters[i].hp);
 	}
 
+	// Player loses
 	if (userPlayer.hp <= 0) {
 		$("#attack").hide();
 		$("#reset").show();
 		$("#message").html("<p> You have been defeated. Game Over </p>");
 	}
 
-	else if (defendingEnemy.hp <= 0) {
-		defendingEnemy.$container.hide();
-		defenderSelected = false;
-		enemiesDefeated++;
-		$("#message").html("<p> You have defeated " + defendingEnemy.name +  "</p>");
-	}
-
-	if (enemiesDefeated === 3) {
+	// Player wins
+	else if (enemiesDefeated === 3) {
 		$("#attack").hide();
 		$("#reset").show();
 		$("#message").html("<p> You Win. Game Over </p>");
 	}
 }
 
+// Resets the game and its parameters for the next round
 function reset () {
 	for (var i = 0; i < characters.length; i++) {
 		$("#startingRow").append(characters[i].$container);
@@ -196,6 +187,7 @@ function reset () {
 		characters[i].hp = characters[i].maxHp;
 		characters[i].attackPower = characters[i].startingAttack;
 		characters[i].$container.children("img").attr("src",characters[i].img);
+		characters[i].$container.children("h3").text(characters[i].name);
 	}
 
 	playerSelected = false;
