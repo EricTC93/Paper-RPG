@@ -8,7 +8,7 @@ body {
 	overflow: auto;
 }
 
-#startingRow, #userRow, #selectRow, #fightRow, #defenderRow {
+#startingRow, #userRow, #selectRow, #fightRow {
 	overflow: auto;
 	margin-top: 10px;
 	margin-bottom: 10px;
@@ -52,11 +52,6 @@ h1, h3, p {
 	background-color: red;
 }
 
-#defenderRow > .characterContainer {
-	background-color: black;
-	color: white;
-}
-
-#reset {
+#reset, #enemy0, #enemy1, #enemy2 {
 	display: none;
 }

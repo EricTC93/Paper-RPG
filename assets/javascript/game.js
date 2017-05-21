@@ -8,12 +8,11 @@ var mario = {
 	$container: $("#char0"),
 	id: $("#char0").attr("id"),
 
-	maxHp: 120,
-	hp: 120,
+	maxHp: 10,
+	hp: 10,
 
-	startingAttack: 15,
-	attackPower: 15,
-	counterAttack: 20
+	startingAttack: 1,
+	attackPower: 1
 };
 
 var luigi = {
@@ -25,65 +24,75 @@ var luigi = {
 	$container: $("#char1"),
 	id: $("#char1").attr("id"),
 
-	maxHp: 115,
-	hp: 115,
+	maxHp: 10,
+	hp: 10,
 
-	startingAttack: 13,
-	attackPower: 13,
-	counterAttack: 25
+	startingAttack: 1,
+	attackPower: 1
 };
 
-var peach = {
-	name:"Peach",
+var enemy0 = {
+	name:"",
 
-	img: "assets/images/peach.png",
-	imgAlt: "assets/images/peachAlt.png",
+	img: "",
 
-	$container: $("#char2"),
-	id: $("#char2").attr("id"),
+	$container: $("#enemy0"),
+	id: $("#enemy0").attr("id"),
 
-	maxHp: 110,
-	hp: 110,
+	maxHp: 0,
+	hp: 0,
 
-	startingAttack: 11,
-	attackPower: 11,
-	counterAttack: 30
+	startingAttack: 0,
+	attackPower: 0
 };
 
-var bowser = {
-	name:"Bowser",
+var enemy1 = {
+	name:"",
 
-	img: "assets/images/bowser.png",
-	imgAlt: "assets/images/bowserAlt.png",
+	img: "",
 
-	$container: $("#char3"),
-	id: $("#char3").attr("id"),
+	$container: $("#enemy1"),
+	id: $("#enemy1").attr("id"),
 
-	maxHp: 125,
-	hp: 125,
+	maxHp: 0,
+	hp: 0,
 
-	startingAttack: 17,
-	attackPower: 17,
-	counterAttack: 15
+	startingAttack: 0,
+	attackPower: 0
 };
 
-var characters = [mario,luigi,peach,bowser];
+var enemy2 = {
+	name:"",
 
-// console.log(mario);
+	img: "",
 
-// console.log($("#char3 > img").attr("src"));
+	$container: $("#enemy2"),
+	id: $("#enemy2").attr("id"),
 
-// $("#char1 > p").text(luigi.hp);
+	maxHp: 0,
+	hp: 0,
 
-// $("#selectRow").append(mario.$container);
+	startingAttack: 0,
+	attackPower: 0
+};
 
-// console.log(mario.$container.children("img"));
 
-// $("#char1 > img").attr("src",luigi.imgAlt);
+var goomba = {
+	name:"Goomba",
 
-// mario.$container.hide();
+	img: "assets/images/goomba.png",
 
-// $("#startingRow").append(mario.$container);
+	maxHp: 2,
+	hp: 2,
+
+	startingAttack: 1,
+	attackPower: 1
+};
+
+var characters = [mario,luigi];
+var enemyList = [goomba];
+var enemies = [enemy0,enemy1,enemy2];
+var scene = [];
 
 // Display players' hp
 for (var i = 0; i < characters.length; i++) {
@@ -99,9 +108,7 @@ var defendingEnemy;
 var enemiesDefeated = 0;
 
 $(".characterContainer").on("click",function() {
-	// console.log(this.id);
-	// console.log(characters[0].id);
-	// Selects Player
+
 	if (!playerSelected) {
 
 		playerSelected = true;
@@ -109,28 +116,30 @@ $(".characterContainer").on("click",function() {
 		for (var i = 0; i < characters.length; i++) {
 
 			if (this.id != characters[i].id) {
-				$("#selectRow").append(characters[i].$container);
-				characters[i].$container.children("img").attr("src",characters[i].imgAlt);
+
+				characters[i].$container.hide();
 
 			}
 
 			else {
 				$("#userRow").append(characters[i].$container);
 				userPlayer = characters[i];
+				scene.push(userPlayer);
+				setEnemies();
+				scene.push(enemy0);
 			}
 		}
 	}
 
 	// Selects Defender
 	else if (!defenderSelected && this.id != userPlayer.id) {
-		for (var i = 0; i < characters.length; i++) {
+		for (var i = 0; i < enemies.length; i++) {
 
 			defenderSelected = true;
 			$("#message").html("");
 
-			if (this.id === characters[i].id) {
-				$("#defenderRow").append(characters[i].$container);
-				defendingEnemy = characters[i];
+			if (this.id === enemies[i].id) {
+				defendingEnemy = enemies[i];
 			}
 		}
 	}
@@ -150,23 +159,20 @@ function battle() {
 		$("#message").html("<p>" + userPlayer.name + " did " + userPlayer.attackPower + " damage</p>" );
 
 		if (defendingEnemy.hp > 0) {
-			userPlayer.hp-=defendingEnemy.counterAttack;
-			$("#message").append("<p>" + defendingEnemy.name + " did " + defendingEnemy.counterAttack + " damage in return</p>" );
+			userPlayer.hp-=defendingEnemy.attackPower;
+			$("#message").append("<p>" + defendingEnemy.name + " did " + defendingEnemy.attackPower + " damage in return</p>" );
 		}
 
-		userPlayer.attackPower+=userPlayer.startingAttack;
-
+		defenderSelected = false;
 		updateDisplay();
 
 	}
 }
 
 function updateDisplay() {
-	// userPlayer.$container.children("p").text(userPlayer.hp);
-	// defendingEnemy.$container.children("p").text(defendingEnemy.hp);
 
-	for (var i = 0; i < characters.length; i++) {
-		characters[i].$container.children("p").text(characters[i].hp);
+	for (var i = 0; i < scene.length; i++) {
+		scene[i].$container.children("p").text(scene[i].hp);
 	}
 
 	if (userPlayer.hp <= 0) {
@@ -182,29 +188,42 @@ function updateDisplay() {
 		$("#message").html("<p> You have defeated " + defendingEnemy.name +  "</p>");
 	}
 
-	if (enemiesDefeated === 3) {
+	if (enemiesDefeated === 1) {
 		$("#attack").hide();
 		$("#reset").show();
-		$("#message").html("<p> You Win. Game Over </p>");
+		$("#message").html("<p> You win the round </p>");
 	}
 }
 
 function reset () {
-	for (var i = 0; i < characters.length; i++) {
-		$("#startingRow").append(characters[i].$container);
-		characters[i].$container.show();
-		characters[i].hp = characters[i].maxHp;
-		characters[i].attackPower = characters[i].startingAttack;
-		characters[i].$container.children("img").attr("src",characters[i].img);
-	}
+	// for (var i = 0; i < characters.length; i++) {
+	// 	$("#startingRow").append(characters[i].$container);
+	// 	characters[i].$container.show();
+	// 	characters[i].hp = characters[i].maxHp;
+	// 	characters[i].attackPower = characters[i].startingAttack;
+	// 	characters[i].$container.children("img").attr("src",characters[i].img);
+	// }
 
-	playerSelected = false;
-	defenderSelected = false;
-	enemiesDefeated = 0;
+	// playerSelected = false;
+	// defenderSelected = false;
+	// enemiesDefeated = 0;
 
-	$("#message").html("");
-	$("#reset").hide();
-	$("#attack").show();
+	// $("#message").html("");
+	// $("#reset").hide();
+	// $("#attack").show();
 
-	updateDisplay();
+	// updateDisplay();
+}
+
+function setEnemies () {
+	enemy0.name = goomba.name;
+	enemy0.hp = goomba.hp;
+	enemy0.attackPower = goomba.attackPower;
+	enemy0.img = goomba.img;
+
+	enemy0.$container.children("h3").text(enemy0.name);
+	enemy0.$container.children("img").attr("src",enemy0.img);
+	enemy0.$container.children("p").text(enemy0.hp);
+	enemy0.$container.show();
+
 }
