@@ -145,7 +145,7 @@ function battle() {
 			defendingEnemy.$container.hide();
 			defenderSelected = false;
 			enemiesDefeated++;
-			$("#message").html("<p> You have defeated " + defendingEnemy.name +  "</p>");
+			$("#message").html("<p> You have defeated " + defendingEnemy.nameAlt +  "</p>");
 		}
 
 		// Player's attack increases
